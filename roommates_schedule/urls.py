@@ -16,9 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from roommates_app.views import (testView)
+from roommates_app.views import (AddApartmentView, ShowApartmensView,
+                                 AddRoommatetView, ShowRoommatedView, DeleteRoommateView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', testView.as_view())
+    path('', ShowApartmensView.as_view(), name='show-apartment'),
+    path('add_apartment', AddApartmentView.as_view(), name='add-apartment'),
+    path('show_apartment', ShowApartmensView.as_view(), name='show-apartment'),
+    path('add_roommate', AddRoommatetView.as_view(), name='add-roommate'),
+    path('show_roommate', ShowRoommatedView.as_view(), name='show-roommate'),
+    path('delete_roommate/<int:roommate_id>', DeleteRoommateView.as_view(), name='delete-roommate')
 ]

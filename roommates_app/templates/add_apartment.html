@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table>
+        <thead>
+        <tr>
+            <td>
+                <h1>Dodaj mieszkanie</h1>
+            </td>
+        </tr>
+        </thead>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" value="Submit">
+                </form>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

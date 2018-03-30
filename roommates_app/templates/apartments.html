@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Lista mieszkań</h1>
+    <ul>
+        {% for apartment in all_apartments %}
+            <li>
+                {{ apartment.user.username }}
+                {{ apartment.id }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

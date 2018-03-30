@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Lista lokatorów</h1>
+    <ul>
+        {% for roommate in all_roommates %}
+            <li>
+                {{ roommate.name }}
+                {{ roommate.apartment }}
+                <a href="{% url 'delete-roommate' roommate.id %}">delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
