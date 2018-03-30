@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Room list</h1>
+    {% for room in all_rooms %}
+        <div class="btn-group btn-group-toggle">
+            <label class="btn btn-secondary">
+                <input type="radio" name="options" id="option1" autocomplete="off"> {{ room.name }}
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="options" id="option2" autocomplete="off"> <a
+                    href="{% url 'delete-room' room.id %}">delete</a>
+            </label>
+        </div>
+        <br>
+    {% endfor %}
+{% endblock %}

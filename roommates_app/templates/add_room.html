@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table>
+        <thead>
+        <tr>
+            <td>
+                <h1>Dodaj pokój</h1>
+            </td>
+        </tr>
+        </thead>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" value="Wyślij">
+                </form>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

@@ -13,10 +13,9 @@
     <title>Good-roommate</title>
 </head>
 <body>
-<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="#">Goog-Roommate</a>
+        <a class="navbar-brand" href="#">Good-Roommate</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -44,8 +43,43 @@
                         <a class="dropdown-item" href="{% url 'show-roommate' %}">Show roommates</a>
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Rooms
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'add-room' %}">Add room</a>
+                        <a class="dropdown-item" href="{% url 'show-room' %}">Show rooms</a>
+                    </div>
+                </li>
             </ul>
         </div>
+        <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" style=visibility:hidden></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href=""><b>Current apartment: {{ request.user.username }}</b></a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add-apartment' %}">Add apartment</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href=""><b>Current apartment: None</b></a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
 
     </div>
 </nav>

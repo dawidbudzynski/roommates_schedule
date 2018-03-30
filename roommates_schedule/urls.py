@@ -16,15 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from roommates_app.views import (AddApartmentView, ShowApartmensView,
-                                 AddRoommatetView, ShowRoommatedView, DeleteRoommateView)
+from roommates_app.views import (AddApartmentView, Showapartmensview, DeleteApartmentView,
+                                 AddRoommateView, ShowRoommatesView, DeleteRoommateView,
+                                 AddRoomView, ShowRoomsView, DeleteRoommView,
+                                 LoginToApartmentView, LogoutView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', ShowApartmensView.as_view(), name='show-apartment'),
+    path('', Showapartmensview.as_view(), name='show-apartment'),
     path('add_apartment', AddApartmentView.as_view(), name='add-apartment'),
-    path('show_apartment', ShowApartmensView.as_view(), name='show-apartment'),
-    path('add_roommate', AddRoommatetView.as_view(), name='add-roommate'),
-    path('show_roommate', ShowRoommatedView.as_view(), name='show-roommate'),
-    path('delete_roommate/<int:roommate_id>', DeleteRoommateView.as_view(), name='delete-roommate')
+    path('show_apartment', Showapartmensview.as_view(), name='show-apartment'),
+    path('delete_apartment/<int:apartment_id>', DeleteApartmentView.as_view(), name='delete-apartment'),
+    path('add_roommate', AddRoommateView.as_view(), name='add-roommate'),
+    path('show_roommate', ShowRoommatesView.as_view(), name='show-roommate'),
+    path('delete_roommate/<int:roommate_id>', DeleteRoommateView.as_view(), name='delete-roommate'),
+    path('add_room', AddRoomView.as_view(), name='add-room'),
+    path('show_room', ShowRoomsView.as_view(), name='show-room'),
+    path('delete_room/<int:room_id>', DeleteRoommView.as_view(), name='delete-room'),
+    path('login', LoginToApartmentView.as_view(), name='login'),
+    path('logout', LogoutView.as_view(), name='logout'),
 ]
