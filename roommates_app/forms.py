@@ -1,7 +1,9 @@
-from django.contrib.auth.models import User
-from django.forms import (Form, CharField, ModelChoiceField, PasswordInput)
+from django.forms import (Form, CharField, ModelChoiceField, PasswordInput, DateField,SelectDateWidget)
 
-all_accounts = User.objects.all()
+from .models import (Roommate, Room)
+
+all_roommates = Roommate.objects.all()
+all_rooms = Room.objects.all()
 
 
 class AddAccountForm(Form):
@@ -13,9 +15,17 @@ class AddAccountForm(Form):
 class AddRoommateForm(Form):
     name = CharField(label='Name', strip=True)
 
+
 class AddRoomForm(Form):
     name = CharField(label='Name', strip=True)
+
 
 class LoginForm(Form):
     username = CharField(label='Name', strip=True)
     password = CharField(label='Password', widget=PasswordInput)
+
+
+class AddCleaningForm(Form):
+    roommate = ModelChoiceField(label='Who cleaned?', queryset=all_roommates)
+    room = ModelChoiceField(label='Which room?', queryset=all_rooms)
+    date = DateField(label='When?', widget=SelectDateWidget)

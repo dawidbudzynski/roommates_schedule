@@ -53,6 +53,16 @@
                         <a class="dropdown-item" href="{% url 'show-room' %}">Show rooms</a>
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Cleaning
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'add-cleaning' %}">Add cleaning</a>
+                        <a class="dropdown-item" href="{% url 'show-cleaning' %}">Show cleaning</a>
+                    </div>
+                </li>
             </ul>
         </div>
         <div class="collapse navbar-collapse">

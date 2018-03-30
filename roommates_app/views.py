@@ -5,8 +5,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views import View
 
-from .forms import (AddAccountForm, AddRoommateForm, AddRoomForm, LoginForm)
-from .models import (Roommate, Room)
+from .forms import (AddAccountForm, AddRoommateForm, AddRoomForm, LoginForm, AddCleaningForm)
+from .models import (Roommate, Room, Cleaning)
 
 
 # APARTMENTS
@@ -140,7 +140,7 @@ class ShowRoomsView(LoginRequiredMixin, View):
                       context=ctx)
 
 
-class DeleteRoommView(LoginRequiredMixin, View):
+class DeleteRoomView(LoginRequiredMixin, View):
 
     def get(self, request, room_id):
         room = Room.objects.get(id=room_id)
@@ -184,3 +184,44 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect('/')
+
+# CLEANING
+
+class AddCleaningView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        form = AddCleaningForm().as_p()
+        ctx = {'form': form}
+
+        return render(request,
+                      template_name='add_cleaning.html',
+                      context=ctx)
+
+    def post(self, request):
+        form = AddCleaningForm(request.POST)
+
+        if form.is_valid():
+            roommate = form.cleaned_data['roommate']
+            room = form.cleaned_data['room']
+            date = form.cleaned_data['date']
+            Cleaning.objects.create(roommate=roommate, room=room, date=date)
+
+            return HttpResponseRedirect('/show_cleaning')
+        return HttpResponse('wrong_value')
+
+class ShowCleaningView(LoginRequiredMixin, View):
+    def get(self, request):
+        all_cleaning = Cleaning.objects.all()
+        ctx = {'all_cleaning': all_cleaning}
+
+        return render(request,
+                      template_name='cleaning.html',
+                      context=ctx)
+
+class DeleteCleaningView(LoginRequiredMixin, View):
+
+    def get(self, request, cleaning_id):
+        cleaning = Cleaning.objects.get(id=cleaning_id)
+        cleaning.delete()
+
+        return HttpResponseRedirect('/show_cleaning')

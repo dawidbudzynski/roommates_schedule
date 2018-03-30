@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-    <table>
-        <thead>
+    <table class="table">
+        <thead class="thead-dark">
         <tr>
-            <td>
-                <h1>Add roommate</h1>
-            </td>
+            <th colspan="4">Add Roommate</th>
         </tr>
         </thead>
     </table>
-    <table>
+    <table class="table">
+        <tbody>
         <tr>
             <td>
                 <form action="{% url 'add-roommate' %}" method="POST">
                     {% csrf_token %}
                     {{ form }}
-                    <input type="submit" value="Submit" class="btn btn-primary>
+                    <input type="submit" value="Submit" class="btn btn-primary>">
                 </form>
             </td>
         </tr>
+        </tbody>
     </table>
 {% endblock %}

@@ -18,8 +18,9 @@ from django.urls import path
 
 from roommates_app.views import (AddAccountView, ShowAccountView, DeleteAccountView,
                                  AddRoommateView, ShowRoommatesView, DeleteRoommateView,
-                                 AddRoomView, ShowRoomsView, DeleteRoommView,
-                                 LoginToApartmentView, LogoutView)
+                                 AddRoomView, ShowRoomsView, DeleteRoomView,
+                                 LoginToApartmentView, LogoutView,
+                                 AddCleaningView, ShowCleaningView, DeleteCleaningView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,7 +33,10 @@ urlpatterns = [
     path('delete_roommate/<int:roommate_id>', DeleteRoommateView.as_view(), name='delete-roommate'),
     path('add_room', AddRoomView.as_view(), name='add-room'),
     path('show_room', ShowRoomsView.as_view(), name='show-room'),
-    path('delete_room/<int:room_id>', DeleteRoommView.as_view(), name='delete-room'),
+    path('delete_room/<int:room_id>', DeleteRoomView.as_view(), name='delete-room'),
     path('login', LoginToApartmentView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
+    path('add_cleaning', AddCleaningView.as_view(), name='add-cleaning'),
+    path('show_cleaning', ShowCleaningView.as_view(), name='show-cleaning'),
+    path('delete_cleaning/<int:cleaning_id>', DeleteCleaningView.as_view(), name='delete-cleaning'),
 ]

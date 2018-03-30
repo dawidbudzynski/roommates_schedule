@@ -1,16 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Apartments list</h1>
-    {% for user in all_users %}
-        <div class="btn-group btn-group-toggle">
-            <label class="btn btn-secondary">
-                <input type="radio" name="options" id="option1" autocomplete="off">  {{ user.username }}
-            </label>
-            <label class="btn btn-secondary">
-                <input type="radio" name="options" id="option2" autocomplete="off">
-                <a href="{% url 'delete-user' user.id %}">delete</a>
-            </label>
-        </div>
-        <br>
-    {% endfor %}
+     <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th colspan="4">Account List</th>
+        </tr>
+        </thead>
+    </table>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in all_users %}
+            <tr>
+                <td> {{ user.username }}</td>
+                <td><a href="{% url 'delete-user' user.id %}">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
