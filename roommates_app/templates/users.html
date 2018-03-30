@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Apartments list</h1>
-    {% for apartment in all_apartments %}
+    {% for user in all_users %}
         <div class="btn-group btn-group-toggle">
             <label class="btn btn-secondary">
-                <input type="radio" name="options" id="option1" autocomplete="off">  {{ apartment.user.username }} {{ apartment.id }}
+                <input type="radio" name="options" id="option1" autocomplete="off">  {{ user.username }}
             </label>
             <label class="btn btn-secondary">
                 <input type="radio" name="options" id="option2" autocomplete="off">
-                <a href="{% url 'delete-apartment' apartment.id %}">delete</a>
+                <a href="{% url 'delete-user' user.id %}">delete</a>
             </label>
         </div>
         <br>

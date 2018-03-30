@@ -4,7 +4,7 @@
         <thead>
         <tr>
             <td>
-                <h1>Dodaj mieszkanie</h1>
+                <h1>Add new account</h1>
             </td>
         </tr>
         </thead>
@@ -12,10 +12,10 @@
     <table>
         <tr>
             <td>
-                <form action="" method="POST">
+                <form action="{% url 'add-account' %}" method="POST">
                     {% csrf_token %}
                     {{ form }}
-                    <input type="submit" value="Submit">
+                    <input type="submit" value="Submit" class="btn btn-primary>
                 </form>
             </td>
         </tr>

@@ -26,11 +26,11 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Apartment
+                        Accounts
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url 'add-apartment' %}">Add apartment</a>
-                        <a class="dropdown-item" href="{% url 'show-apartment' %}">Show apartments</a>
+                        <a class="dropdown-item" href="{% url 'add-account' %}">Add account</a>
+                        <a class="dropdown-item" href="{% url 'show-account' %}">Show account</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -69,13 +69,13 @@
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'add-apartment' %}">Add apartment</a>
+                    <a class="nav-link" href="{% url 'add-account' %}">Add account</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href=""><b>Current apartment: None</b></a>
+                    <a class="nav-link" href=""><b>Current apartment: ------</b></a>
                 </li>
             {% endif %}
         </ul>

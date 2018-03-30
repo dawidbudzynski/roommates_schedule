@@ -4,7 +4,7 @@
         <thead>
         <tr>
             <td>
-                <h1>Dodaj lokatora</h1>
+                <h1>Add roommate</h1>
             </td>
         </tr>
         </thead>
@@ -12,10 +12,10 @@
     <table>
         <tr>
             <td>
-                <form action="" method="POST">
+                <form action="{% url 'add-roommate' %}" method="POST">
                     {% csrf_token %}
                     {{ form }}
-                    <input type="submit" value="Wyślij">
+                    <input type="submit" value="Submit" class="btn btn-primary>
                 </form>
             </td>
         </tr>
