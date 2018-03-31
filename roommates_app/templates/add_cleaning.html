@@ -9,9 +9,8 @@
     </table>
     <form action="{% url 'add-cleaning' %}" method="POST">
         {% csrf_token %}
-        <table style="width:100%; table-layout: fixed" border="1" id="calendar" class="table">
-            <tr style="height:30px">
-            <tr style="height: 30px; background-color: #eaeaea">
+        <table class="table">
+            <tr>
                 <th>Week no</th>
                 <th>Monday</th>
                 <th>Tuesday</th>
@@ -27,7 +26,7 @@
                 <th colspan="10"><h3>April + May</h3></th>
             </tr>
             {% for week_number in all_weeks_numbers %}
-                <tr style="height:100px">
+                <tr>
                     <td>{{ week_number }}</td>
                     <td></td>
                     <td></td>
@@ -38,7 +37,7 @@
                     <td></td>
                     <td>
                         <label>
-                            <select name="roommate_week_{{ week_number }}">
+                            <select name="roommate_week_{{ week_number }}" class="custom-select">
                                 {% for roommate in all_roommates %}
                                     <option value={{ roommate.id }}>{{ roommate.name }}</option>
                                 {% endfor %}
@@ -47,7 +46,7 @@
                     </td>
                     <td>
                         <label>
-                            <select name="room_week_{{ week_number }}">
+                            <select name="room_week_{{ week_number }}" class="custom-select">
                                 {% for room in all_rooms %}
                                     <option value={{ room.id }}>{{ room.name }}</option>
                                 {% endfor %}
@@ -56,8 +55,12 @@
                     </td>
                 </tr>
             {% endfor %}
+            <tr>
+                <td colspan="10">
+                    <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block">
+                </td>
+            </tr>
         </table>
-        <input type="submit" value="Submit" class="btn btn-primary>">
     </form>
 
 {% endblock %}
