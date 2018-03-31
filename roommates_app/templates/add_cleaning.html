@@ -9,7 +9,7 @@
     </table>
     <form action="{% url 'add-cleaning' %}" method="POST">
         {% csrf_token %}
-        <table style="width:100%; table-layout: fixed" border="1" id="calendar">
+        <table style="width:100%; table-layout: fixed" border="1" id="calendar" class="table">
             <tr style="height:30px">
             <tr style="height: 30px; background-color: #eaeaea">
                 <th>Week no</th>
@@ -20,138 +20,42 @@
                 <th>Friday</th>
                 <th>Saturday</th>
                 <th>Sunday</th>
-                <th>Who cleans?</th>
+                <th>Who?</th>
+                <th>Which room?</th>
             </tr>
-            <tr style="height:100px; background-color: {{ week_1_colour }}">
-                <td>{{ first_week_of_the_month }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>{{ week_1_roommate.name }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <label> Who? <br>
-                        <select name="roommate_week_{{ first_week_of_the_month }}">
-                            {% for roommate in all_roommates %}
-                                <option value={{ roommate.id }}>{{ roommate.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                    <label> Which room? <br>
-                        <select name="room_week_{{ first_week_of_the_month }}">
-                            {% for room in all_rooms %}
-                                <option value={{ room.id }}>{{ room.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                </td>
+            <tr>
+                <th colspan="10"><h3>April + May</h3></th>
             </tr>
-            <tr style="height:100px; background-color: {{ week_2_colour }}">
-                <td>{{ first_week_of_the_month|add:"1" }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <label> Who? <br>
-                        <select name="roommate_week_{{ first_week_of_the_month|add:"1" }}">
-                            {% for roommate in all_roommates %}
-                                <option value={{ roommate.id }}>{{ roommate.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                    <label> Which room? <br>
-                        <select name="room_week_{{ first_week_of_the_month|add:"1" }}">
-                            {% for room in all_rooms %}
-                                <option value={{ room.id }}>{{ room.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                </td>
-            </tr>
-            <tr style="height:100px; background-color: {{ week_3_colour }}">
-                <td>{{ first_week_of_the_month|add:"2" }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <label> Who? <br>
-                        <select name="roommate_week_{{ first_week_of_the_month|add:"2" }}">
-                            {% for roommate in all_roommates %}
-                                <option value={{ roommate.id }}>{{ roommate.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                    <label> Which room? <br>
-                        <select name="room_week_{{ first_week_of_the_month|add:"2" }}">
-                            {% for room in all_rooms %}
-                                <option value={{ room.id }}>{{ room.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                </td>
-            </tr>
-            <tr style="height:100px; background-color: {{ week_4_colour }}">
-                <td>{{ first_week_of_the_month|add:"3" }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <label> Who? <br>
-                        <select name="roommate_week_{{ first_week_of_the_month|add:"3" }}">
-                            {% for roommate in all_roommates %}
-                                <option value={{ roommate.id }}>{{ roommate.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                    <label> Which room? <br>
-                        <select name="room_week_{{ first_week_of_the_month|add:"3" }}">
-                            {% for room in all_rooms %}
-                                <option value={{ room.id }}>{{ room.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                </td>
-            </tr>
-            <tr style="height:100px; background-color: {{ week_5_colour }}">
-                <td>{{ first_week_of_the_month|add:"4" }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <label> Who? <br>
-                        <select name="roommate_week_{{ first_week_of_the_month|add:"4" }}">
-                            {% for roommate in all_roommates %}
-                                <option value={{ roommate.id }}>{{ roommate.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                    <label> Which room? <br>
-                        <select name="room_week_{{ first_week_of_the_month|add:"4" }}">
-                            {% for room in all_rooms %}
-                                <option value={{ room.id }}>{{ room.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                </td>
-            </tr>
+            {% for week_number in all_weeks_numbers %}
+                <tr style="height:100px">
+                    <td>{{ week_number }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <label>
+                            <select name="roommate_week_{{ week_number }}">
+                                {% for roommate in all_roommates %}
+                                    <option value={{ roommate.id }}>{{ roommate.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            <select name="room_week_{{ week_number }}">
+                                {% for room in all_rooms %}
+                                    <option value={{ room.id }}>{{ room.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </td>
+                </tr>
+            {% endfor %}
         </table>
         <input type="submit" value="Submit" class="btn btn-primary>">
     </form>

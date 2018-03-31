@@ -1,4 +1,5 @@
 import datetime
+from operator import itemgetter
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -190,11 +191,14 @@ class AddCleaningView(LoginRequiredMixin, View):
         all_rooms = Room.objects.all()
         all_roommates = Roommate.objects.all().order_by('name')
         first_week_of_the_month = datetime.date.today().isocalendar()[1]
-        last_week_of_the_month = first_week_of_the_month + 4
+        last_week_of_two_months = first_week_of_the_month + 9
+
+        all_weeks_numbers = list(range(first_week_of_the_month, last_week_of_two_months + 1))
 
         ctx = {'all_roommates': all_roommates,
                'all_rooms': all_rooms,
-               'first_week_of_the_month': first_week_of_the_month}
+               'first_week_of_the_month': first_week_of_the_month,
+               'all_weeks_numbers': all_weeks_numbers}
 
         return render(request,
                       template_name='add_cleaning.html',
@@ -203,34 +207,29 @@ class AddCleaningView(LoginRequiredMixin, View):
     def post(self, request):
 
         first_week_of_the_month = datetime.date.today().isocalendar()[1]
-        last_week_of_the_month = first_week_of_the_month + 4
+        last_week_of_two_months = first_week_of_the_month + 9
 
-        all_weeks_data = {}
-        for i in range(first_week_of_the_month, last_week_of_the_month + 1):
-            all_weeks_data["week_{0}".format(i)] = {}
+        all_weeks_info = []
+        for i in range(first_week_of_the_month, last_week_of_two_months + 1):
+            single_week_info = {}
             roommate_result_id = request.POST['roommate_week_{}'.format(i)]
             room_result_id = request.POST['room_week_{}'.format(i)]
+            # cleaning_this_week = Cleaning.objects.get(week=i)
             selected_roommate = Roommate.objects.get(id=roommate_result_id)
             selected_room = Room.objects.get(id=room_result_id)
+
             if Cleaning.objects.filter(week=i).exists():
                 Cleaning.objects.filter(week=i).delete()
             Cleaning.objects.create(roommate=selected_roommate, room=selected_room, week=i)
 
-            all_weeks_data["week_{0}".format(i)].update({'week': i, 'selected_roommate': selected_roommate,
-                                                         'selected_room': selected_room})
+            single_week_info.update({'week': i, 'selected_roommate': selected_roommate,
+                                     'selected_room': selected_room})
+            all_weeks_info.append(single_week_info)
 
-        week_1_data = all_weeks_data['week_{}'.format(first_week_of_the_month)]
-        week_2_data = all_weeks_data['week_{}'.format(first_week_of_the_month + 1)]
-        week_3_data = all_weeks_data['week_{}'.format(first_week_of_the_month + 2)]
-        week_4_data = all_weeks_data['week_{}'.format(first_week_of_the_month + 3)]
-        week_5_data = all_weeks_data['week_{}'.format(first_week_of_the_month + 4)]
-
-        ctx = {'week_1_data': week_1_data,
-               'week_2_data': week_2_data,
-               'week_3_data': week_3_data,
-               'week_4_data': week_4_data,
-               'week_5_data': week_5_data}
-
+        sorted_all_weeks_info = sorted(all_weeks_info, key=itemgetter('week'))
+        ctx = {
+            'sorted_all_weeks_info': sorted_all_weeks_info
+        }
         return render(request,
                       template_name='cleaning_result.html',
                       context=ctx)
@@ -239,30 +238,23 @@ class AddCleaningView(LoginRequiredMixin, View):
 class ShowCleaningView(LoginRequiredMixin, View):
     def get(self, request):
         first_week_of_the_month = datetime.date.today().isocalendar()[1]
-        last_week_of_the_month = first_week_of_the_month + 4
-        all_weeks_data = {}
-        for i in range(first_week_of_the_month, last_week_of_the_month + 1):
-            all_weeks_data["week_{0}".format(i)] = {}
+        last_week_of_two_months = first_week_of_the_month + 9
+
+        all_weeks_info = []
+        for i in range(first_week_of_the_month, last_week_of_two_months + 1):
+            single_week_info = {}
             cleaning_this_week = Cleaning.objects.get(week=i)
             selected_roommate = cleaning_this_week.roommate
             selected_room = cleaning_this_week.room
 
-            all_weeks_data["week_{0}".format(i)].update({'week': i, 'selected_roommate': selected_roommate,
-                                                         'selected_room': selected_room})
+            single_week_info.update({'week': i, 'selected_roommate': selected_roommate,
+                                     'selected_room': selected_room})
+            all_weeks_info.append(single_week_info)
 
-        week_1_data = all_weeks_data['week_{}'.format(first_week_of_the_month)]
-        week_2_data = all_weeks_data['week_{}'.format(first_week_of_the_month + 1)]
-        week_3_data = all_weeks_data['week_{}'.format(first_week_of_the_month + 2)]
-        week_4_data = all_weeks_data['week_{}'.format(first_week_of_the_month + 3)]
-        week_5_data = all_weeks_data['week_{}'.format(first_week_of_the_month + 4)]
-
-        ctx = {'first_week_of_the_month': first_week_of_the_month,
-               'week_1_data': week_1_data,
-               'week_2_data': week_2_data,
-               'week_3_data': week_3_data,
-               'week_4_data': week_4_data,
-               'week_5_data': week_5_data}
-
+        sorted_all_weeks_info = sorted(all_weeks_info, key=itemgetter('week'))
+        ctx = {
+            'sorted_all_weeks_info': sorted_all_weeks_info
+        }
         return render(request,
                       template_name='cleaning_result.html',
                       context=ctx)
