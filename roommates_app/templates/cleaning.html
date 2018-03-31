@@ -19,8 +19,8 @@
         <tbody>
         {% for cleaning in all_cleaning %}
             <tr>
-                <td> {{ cleaning.roommate }}</td>
-                <td> {{ cleaning.room }}</td>
+                <td> {{ cleaning.roommate.name }}</td>
+                <td> {{ cleaning.room.name }}</td>
                 <td> {{ cleaning.date }}</td>
                 <td><a href="{% url 'delete-cleaning' cleaning.id %}">Delete</a></td>
             </tr>

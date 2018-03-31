@@ -1,9 +1,11 @@
-from django.forms import (Form, CharField, ModelChoiceField, PasswordInput, DateField,SelectDateWidget)
+from django.forms import (Form, CharField, ModelChoiceField, PasswordInput, DateField, SelectDateWidget, ChoiceField)
+
 
 from .models import (Roommate, Room)
 
 all_roommates = Roommate.objects.all()
 all_rooms = Room.objects.all()
+COLOURS = {('red', 'red'), ('yellow', 'yellow'), ('orange', 'orange'), ('white', 'white')}
 
 
 class AddAccountForm(Form):
@@ -14,6 +16,7 @@ class AddAccountForm(Form):
 
 class AddRoommateForm(Form):
     name = CharField(label='Name', strip=True)
+    colour = ChoiceField(choices=COLOURS)
 
 
 class AddRoomForm(Form):

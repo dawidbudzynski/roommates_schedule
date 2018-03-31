@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views import View
+import calendar
 
 from .forms import (AddAccountForm, AddRoommateForm, AddRoomForm, LoginForm, AddCleaningForm)
 from .models import (Roommate, Room, Cleaning)
@@ -78,9 +79,10 @@ class AddRoommateView(LoginRequiredMixin, View):
 
         if form.is_valid():
             name = form.cleaned_data['name']
+            colour = form.cleaned_data['colour']
             if request.user.is_authenticated:
                 account = request.user
-                Roommate.objects.create(name=name, account=account)
+                Roommate.objects.create(name=name, account=account, colour=colour)
 
             return HttpResponseRedirect('/show_roommate')
         return HttpResponse('wrong_value')
@@ -185,38 +187,91 @@ class LogoutView(View):
         logout(request)
         return HttpResponseRedirect('/')
 
+
 # CLEANING
 
 class AddCleaningView(LoginRequiredMixin, View):
 
     def get(self, request):
-        form = AddCleaningForm().as_p()
-        ctx = {'form': form}
+        form = AddCleaningForm()
+        all_rooms = Room.objects.all()
+        all_roommates = Roommate.objects.all()
+
+        ctx = {'form': form,
+               'all_roommates':all_roommates,
+               'all_rooms':all_rooms}
 
         return render(request,
                       template_name='add_cleaning.html',
                       context=ctx)
 
     def post(self, request):
-        form = AddCleaningForm(request.POST)
 
-        if form.is_valid():
-            roommate = form.cleaned_data['roommate']
-            room = form.cleaned_data['room']
-            date = form.cleaned_data['date']
-            Cleaning.objects.create(roommate=roommate, room=room, date=date)
+        # week_1
 
-            return HttpResponseRedirect('/show_cleaning')
-        return HttpResponse('wrong_value')
+        roommate_result_id = request.POST['roommate_week_1']
+        room_result_id = request.POST['room_week_1']
+        selected_roommate_1 = Roommate.objects.get(id=roommate_result_id)
+        selected_room_1 = Room.objects.get(id=room_result_id)
+        Cleaning.objects.create(roommate=selected_roommate_1, room=selected_room_1)
+
+        # week_2
+
+        roommate_result_id = request.POST['roommate_week_2']
+        room_result_id = request.POST['room_week_2']
+        selected_roommate_2 = Roommate.objects.get(id=roommate_result_id)
+        selected_room_2 = Room.objects.get(id=room_result_id)
+        Cleaning.objects.create(roommate=selected_roommate_2, room=selected_room_2)
+
+        # week_3
+
+        roommate_result_id = request.POST['roommate_week_3']
+        room_result_id = request.POST['room_week_3']
+        selected_roommate_3 = Roommate.objects.get(id=roommate_result_id)
+        selected_room_3 = Room.objects.get(id=room_result_id)
+        Cleaning.objects.create(roommate=selected_roommate_3, room=selected_room_3)
+
+        # week_4
+
+        roommate_result_id = request.POST['roommate_week_4']
+        room_result_id = request.POST['room_week_4']
+        selected_roommate_4 = Roommate.objects.get(id=roommate_result_id)
+        selected_room_4 = Room.objects.get(id=room_result_id)
+        Cleaning.objects.create(roommate=selected_roommate_4, room=selected_room_4)
+
+        # week_5
+
+        roommate_result_id = request.POST['roommate_week_5']
+        room_result_id = request.POST['room_week_5']
+        selected_roommate_5 = Roommate.objects.get(id=roommate_result_id)
+        selected_room_5 = Room.objects.get(id=room_result_id)
+        Cleaning.objects.create(roommate=selected_roommate_5, room=selected_room_5)
+
+
+        ctx = {'week_1_colour': selected_roommate_1.colour,
+               'week_2_colour': selected_roommate_2.colour,
+               'week_3_colour': selected_roommate_3.colour,
+               'week_4_colour': selected_roommate_4.colour,
+               'week_5_colour': selected_roommate_5.colour}
+
+        return render(request,
+                      template_name='add_cleaning.html',
+                      context=ctx)
+
 
 class ShowCleaningView(LoginRequiredMixin, View):
     def get(self, request):
         all_cleaning = Cleaning.objects.all()
-        ctx = {'all_cleaning': all_cleaning}
+        c = calendar.HTMLCalendar(calendar.MONDAY)
+        cal = c.formatmonth(2018, 4)
+
+        ctx = {'all_cleaning': all_cleaning,
+               'cal': cal}
 
         return render(request,
                       template_name='cleaning.html',
                       context=ctx)
+
 
 class DeleteCleaningView(LoginRequiredMixin, View):
 

@@ -40,3 +40,4 @@ urlpatterns = [
     path('show_cleaning', ShowCleaningView.as_view(), name='show-cleaning'),
     path('delete_cleaning/<int:cleaning_id>', DeleteCleaningView.as_view(), name='delete-cleaning'),
 ]
+
