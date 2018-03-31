@@ -22,4 +22,4 @@ class Room(models.Model):
 class Cleaning(models.Model):
     roommate = models.ForeignKey(Roommate, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    date = models.DateField(null=True)
+    week = models.IntegerField(null=True)

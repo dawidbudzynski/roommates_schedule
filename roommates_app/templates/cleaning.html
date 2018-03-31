@@ -1,30 +1,31 @@
-{% extends 'base.html' %}
-{% block content %}
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th colspan="4">Cleaning List</th>
-        </tr>
-        </thead>
-    </table>
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">Who cleaned</th>
-            <th scope="col">Which room</th>
-            <th scope="col">When</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for cleaning in all_cleaning %}
-            <tr>
-                <td> {{ cleaning.roommate.name }}</td>
-                <td> {{ cleaning.room.name }}</td>
-                <td> {{ cleaning.date }}</td>
-                <td><a href="{% url 'delete-cleaning' cleaning.id %}">Delete</a></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-{% endblock %}
+{#{% extends 'base.html' %}#}
+{#{% block content %}#}
+{#    <table class="table">#}
+{#        <thead class="thead-dark">#}
+{#        <tr>#}
+{#            <th colspan="4">Cleaning List</th>#}
+{#        </tr>#}
+{#        </thead>#}
+{#    </table>#}
+{#    <table class="table">#}
+{#        <thead class="thead-dark">#}
+{#        <tr>#}
+{#            <th scope="col">Who cleaned</th>#}
+{#            <th scope="col">Which room</th>#}
+{#            <th scope="col">When</th>#}
+{#            <th scope="col"></th>#}
+{#        </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#        {% for cleaning in all_cleaning %}#}
+{#            <tr>#}
+{#                <td> {{ cleaning.roommate.name }}</td>#}
+{#                <td> {{ cleaning.room.name }}</td>#}
+{#                <td> {{ cleaning.date }}</td>#}
+{#                <td> {{ cleaning.week }}</td>#}
+{#                <td><a href="{% url 'delete-cleaning' cleaning.id %}">Delete</a></td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#        </tbody>#}
+{#    </table>#}
+{#{% endblock %}#}
