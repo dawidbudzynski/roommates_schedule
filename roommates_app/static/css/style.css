@@ -1,12 +1,23 @@
 .table {
+    border-collapse: separate !important;
     table-layout: fixed;
     width: 100%;
+
 }
 table, td, tr, th {
-    border: 3px solid darkslategray;
+    border-radius: 10px;
+    border: 3px solid cornflowerblue;
 }
 td{
     height: 80px;
+}
+thead {
+    text-align: center;
+    font-size: 30px;
+}
+#month{
+    text-align: center;
+    font-size: 20px;
 }
 
 input[type=text] {
@@ -31,6 +42,9 @@ select {
     -webkit-border-radius: 5px;
     border-radius: 5px;
     width: 100%;
+}
+.btn-primary {
+    width: 30%;
 }
 
 

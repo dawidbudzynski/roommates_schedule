@@ -4,6 +4,7 @@ from operator import itemgetter
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views import View
@@ -188,18 +189,32 @@ class LogoutView(View):
 
 class AddCleaningView(LoginRequiredMixin, View):
     def get(self, request):
-        all_rooms = Room.objects.all()
+        all_rooms = Room.objects.all().order_by('name')
         all_roommates = Roommate.objects.all().order_by('name')
+
         first_week_of_the_month = datetime.date.today().isocalendar()[1]
         last_week_of_two_months = first_week_of_the_month + 9
 
-        all_weeks_numbers = list(range(first_week_of_the_month, last_week_of_two_months + 1))
+        all_weeks_info = []
+        for i in range(first_week_of_the_month, last_week_of_two_months + 1):
+            single_week_info = {}
+            try:
+                cleaning_this_week = Cleaning.objects.get(week=i)
+                selected_roommate = cleaning_this_week.roommate
+                selected_room = cleaning_this_week.room
+            except ObjectDoesNotExist:
+                selected_roommate = None
+                selected_room = None
 
+            single_week_info.update({'week': i, 'selected_roommate': selected_roommate,
+                                     'selected_room': selected_room})
+            all_weeks_info.append(single_week_info)
+
+        sorted_all_weeks_info = sorted(all_weeks_info, key=itemgetter('week'))
         ctx = {'all_roommates': all_roommates,
                'all_rooms': all_rooms,
-               'first_week_of_the_month': first_week_of_the_month,
-               'all_weeks_numbers': all_weeks_numbers}
-
+               'sorted_all_weeks_info': sorted_all_weeks_info
+               }
         return render(request,
                       template_name='add_cleaning.html',
                       context=ctx)
@@ -214,7 +229,6 @@ class AddCleaningView(LoginRequiredMixin, View):
             single_week_info = {}
             roommate_result_id = request.POST['roommate_week_{}'.format(i)]
             room_result_id = request.POST['room_week_{}'.format(i)]
-            # cleaning_this_week = Cleaning.objects.get(week=i)
             selected_roommate = Roommate.objects.get(id=roommate_result_id)
             selected_room = Room.objects.get(id=room_result_id)
 
@@ -243,9 +257,13 @@ class ShowCleaningView(LoginRequiredMixin, View):
         all_weeks_info = []
         for i in range(first_week_of_the_month, last_week_of_two_months + 1):
             single_week_info = {}
-            cleaning_this_week = Cleaning.objects.get(week=i)
-            selected_roommate = cleaning_this_week.roommate
-            selected_room = cleaning_this_week.room
+            try:
+                cleaning_this_week = Cleaning.objects.get(week=i)
+                selected_roommate = cleaning_this_week.roommate
+                selected_room = cleaning_this_week.room
+            except ObjectDoesNotExist:
+                selected_roommate = None
+                selected_room = None
 
             single_week_info.update({'week': i, 'selected_roommate': selected_roommate,
                                      'selected_room': selected_room})

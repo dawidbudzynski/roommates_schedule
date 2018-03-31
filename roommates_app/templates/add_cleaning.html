@@ -23,11 +23,11 @@
                 <th>Which room?</th>
             </tr>
             <tr>
-                <th colspan="10"><h3>April + May</h3></th>
+                <th colspan="10" id="month"><h3>April + May</h3></th>
             </tr>
-            {% for week_number in all_weeks_numbers %}
-                <tr>
-                    <td>{{ week_number }}</td>
+            {% for week_info in sorted_all_weeks_info %}
+                <tr style="background-color: {{ week_info.selected_roommate.colour }}">
+                    <td><h4>{{ week_info.week }}</h4></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -37,7 +37,7 @@
                     <td></td>
                     <td>
                         <label>
-                            <select name="roommate_week_{{ week_number }}" class="custom-select">
+                            <select name="roommate_week_{{ week_info.week }}" class="custom-select">
                                 {% for roommate in all_roommates %}
                                     <option value={{ roommate.id }}>{{ roommate.name }}</option>
                                 {% endfor %}
@@ -46,7 +46,7 @@
                     </td>
                     <td>
                         <label>
-                            <select name="room_week_{{ week_number }}" class="custom-select">
+                            <select name="room_week_{{ week_info.week }}" class="custom-select">
                                 {% for room in all_rooms %}
                                     <option value={{ room.id }}>{{ room.name }}</option>
                                 {% endfor %}

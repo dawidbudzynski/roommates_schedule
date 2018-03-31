@@ -23,11 +23,11 @@
                 <th>Which room?</th>
             </tr>
             <tr>
-                <th colspan="10"><h3>April + May</h3></th>
+                <th colspan="10" id="month"><h3>April + May</h3></th>
             </tr>
             {% for week_info in sorted_all_weeks_info %}
                 <tr style="background-color: {{ week_info.selected_roommate.colour }}">
-                    <td>{{ week_info.week }}</td>
+                    <td><h4>{{ week_info.week }}</h4></td>
                     <td></td>
                     <td></td>
                     <td></td>
