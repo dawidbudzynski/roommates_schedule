@@ -12,10 +12,12 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
 
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+
     <title>Good-roommate</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand" href="#">Good-Roommate</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -25,9 +27,9 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                         Accounts
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -35,7 +37,7 @@
                         <a class="dropdown-item" href="{% url 'show-account' %}">Show account</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Roommate
@@ -45,22 +47,22 @@
                         <a class="dropdown-item" href="{% url 'show-roommate' %}">Show roommates</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Rooms
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu active" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url 'add-room' %}">Add room</a>
                         <a class="dropdown-item" href="{% url 'show-room' %}">Show rooms</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Cleaning
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu active" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url 'add-cleaning' %}">Add cleaning</a>
                         <a class="dropdown-item" href="{% url 'show-cleaning' %}">Show cleaning</a>
                     </div>
@@ -95,7 +97,7 @@
 
     </div>
 </nav>
-<div class="container">
+<div class="container" id="content">
     {% block content %}
     {% endblock %}
 </div>

@@ -6,7 +6,7 @@
             <th colspan="7" id="title">Add Cleaning</th>
         </tr>
         </thead>
-        <tr>
+        <tr class="weekdays_row">
             <th>Monday</th>
             <th>Tuesday</th>
             <th>Wednesday</th>
@@ -68,14 +68,14 @@
                                         </label>
                                     </td>
                                     <td>
-                                       <label class="select_label">
+                                        <label class="select_label">
                                             <select name="roommate_index_{{ day.1.0 }}" class="custom-select">
                                                 {% for roommate in all_roommates %}
                                                     <option value={{ roommate.id }}>{{ roommate.name }}</option>
                                                 {% endfor %}
                                             </select>
                                         </label>
-                                       <label class="select_label">
+                                        <label class="select_label">
                                             <select name="room_index_{{ day.1.0 }}" class="custom-select">
                                                 {% for room in all_rooms %}
                                                     <option value={{ room.id }}>{{ room.name }}</option>
@@ -100,7 +100,7 @@
                                         </label>
                                     </td>
                                     <td>
-                                       <label class="select_label">
+                                        <label class="select_label">
                                             <select name="roommate_index_{{ day.3.0 }}" class="custom-select">
                                                 {% for roommate in all_roommates %}
                                                     <option value={{ roommate.id }}>{{ roommate.name }}</option>
@@ -139,7 +139,7 @@
                                                 {% endfor %}
                                             </select>
                                         </label>
-                                       <label class="select_label">
+                                        <label class="select_label">
                                             <select name="room_index_{{ day.5.0 }}" class="custom-select">
                                                 {% for room in all_rooms %}
                                                     <option value={{ room.id }}>{{ room.name }}</option>
@@ -164,13 +164,14 @@
                                         </label>
                                     </td>
                                 </tr>
+
                             {% endfor %}
+                        <tr>
+                            <td colspan="7">
+                                <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block">
+                            </td>
+                        </tr>
                     {% endfor %}
-                    <tr>
-                        <td colspan="7">
-                            <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block">
-                        </td>
-                    </tr>
                 </table>
             </form>
         </div>

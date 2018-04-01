@@ -231,24 +231,17 @@ class AddCleaningView(LoginRequiredMixin, View):
                 roommate_result_id = request.POST['roommate_index_{}'.format(i)]
                 selected_roommate = Roommate.objects.get(id=roommate_result_id)
             else:
-                roommate_result_id = None
+                # roommate_result_id = None
                 selected_roommate = None
 
             if 'room_index_{}'.format(i) in request.POST:
                 room_result_id = request.POST['room_index_{}'.format(i)]
                 selected_room = Room.objects.get(id=room_result_id)
             else:
-                room_result_id = None
+                # room_result_id = None
                 selected_room = None
 
-            # if selected_roommate != None and selected_room != None:
-            #     if Cleaning.objects.filter(index=i).exists():
-            #         Cleaning.objects.filter(index=i).delete()
-
-            if request.user.is_authenticated:
-                account = request.user
-
-            if selected_room != None and selected_roommate != None:
+            if selected_room is not None and selected_roommate is not None:
                 if request.user.is_authenticated:
                     account = request.user
                 else:
@@ -256,19 +249,12 @@ class AddCleaningView(LoginRequiredMixin, View):
                 if Cleaning.objects.filter(index=i).exists():
                     Cleaning.objects.filter(index=i).delete()
                     Cleaning.objects.create(account=account, roommate=selected_roommate, room=selected_room, index=i)
-                Cleaning.objects.create(account=account, roommate=selected_roommate, room=selected_room, index=i)
+                else:
+                    Cleaning.objects.create(account=account, roommate=selected_roommate, room=selected_room, index=i)
 
             single_week_info.update(
                 {'day': i, 'selected_roommate': selected_roommate, 'selected_room': selected_room})
             all_weeks_info.append(single_week_info)
-
-        # sorted_all_weeks_info = sorted(all_weeks_info, key=itemgetter('day'))
-        # ctx = {
-        #     'sorted_all_weeks_info': sorted_all_weeks_info}
-        #
-        # return render(request,
-        #               template_name='test.html',
-        #               context=ctx)
 
         return HttpResponseRedirect('/show_cleaning')
 

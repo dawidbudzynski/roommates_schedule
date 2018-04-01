@@ -10,7 +10,7 @@
     <form action="{% url 'add-cleaning' %}" method="POST">
         {% csrf_token %}
         <table class="table">
-            <tr>
+            <tr class="weekdays_row">
                 <th>Monday</th>
                 <th>Tuesday</th>
                 <th>Wednesday</th>
@@ -52,56 +52,56 @@
                             {% for single_day_info in sorted_all_days_info %}
                                 {% if single_day_info.day == day.0.0 %}
                                     <td style="background-color: {{ single_day_info.selected_roommate.colour }}">
-                                    {{ single_day_info.selected_roommate.name }}<br>
-                                    {{ single_day_info.selected_room.name }}
+                                    <p>{{ single_day_info.selected_roommate.name }}</p>
+                                    <p>{{ single_day_info.selected_room.name }}</p>
                                 {% endif %}
                             {% endfor %}
                             </td>
                             {% for single_day_info in sorted_all_days_info %}
                                 {% if single_day_info.day == day.1.0 %}
                                     <td style="background-color: {{ single_day_info.selected_roommate.colour }}">
-                                    {{ single_day_info.selected_roommate.name }}<br>
-                                    {{ single_day_info.selected_room.name }}
+                                    <p>{{ single_day_info.selected_roommate.name }}</p>
+                                    <p>{{ single_day_info.selected_room.name }}</p>
                                 {% endif %}
                             {% endfor %}
                             </td>
                             {% for single_day_info in sorted_all_days_info %}
                                 {% if single_day_info.day == day.2.0 %}
                                     <td style="background-color: {{ single_day_info.selected_roommate.colour }}">
-                                    {{ single_day_info.selected_roommate.name }}<br>
-                                    {{ single_day_info.selected_room.name }}
+                                    <p>{{ single_day_info.selected_roommate.name }}</p>
+                                    <p>{{ single_day_info.selected_room.name }}</p>
                                 {% endif %}
                             {% endfor %}
                             </td>
                             {% for single_day_info in sorted_all_days_info %}
                                 {% if single_day_info.day == day.3.0 %}
                                     <td style="background-color: {{ single_day_info.selected_roommate.colour }}">
-                                    {{ single_day_info.selected_roommate.name }}<br>
-                                    {{ single_day_info.selected_room.name }}
+                                    <p>{{ single_day_info.selected_roommate.name }}</p>
+                                    <p>{{ single_day_info.selected_room.name }}</p>
                                 {% endif %}
                             {% endfor %}
                             </td>
                             {% for single_day_info in sorted_all_days_info %}
                                 {% if single_day_info.day == day.4.0 %}
                                     <td style="background-color: {{ single_day_info.selected_roommate.colour }}">
-                                    {{ single_day_info.selected_roommate.name }}<br>
-                                    {{ single_day_info.selected_room.name }}
+                                    <p>{{ single_day_info.selected_roommate.name }}</p>
+                                    <p>{{ single_day_info.selected_room.name }}</p>
                                 {% endif %}
                             {% endfor %}
                             </td>
                             {% for single_day_info in sorted_all_days_info %}
                                 {% if single_day_info.day == day.5.0 %}
                                     <td style="background-color: {{ single_day_info.selected_roommate.colour }}">
-                                    {{ single_day_info.selected_roommate.name }}<br>
-                                    {{ single_day_info.selected_room.name }}
+                                    <p>{{ single_day_info.selected_roommate.name }}</p>
+                                    <p>{{ single_day_info.selected_room.name }}</p>
                                 {% endif %}
                             {% endfor %}
                             </td>
                             {% for single_day_info in sorted_all_days_info %}
                                 {% if single_day_info.day == day.6.0 %}
                                     <td style="background-color: {{ single_day_info.selected_roommate.colour }}">
-                                    {{ single_day_info.selected_roommate.name }}<br>
-                                    {{ single_day_info.selected_room.name }}
+                                    <p>{{ single_day_info.selected_roommate.name }}</p>
+                                    <p>{{ single_day_info.selected_room.name }}</p>
                                 {% endif %}
                             {% endfor %}
                             </td>

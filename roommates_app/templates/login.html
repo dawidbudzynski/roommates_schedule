@@ -1,8 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form action="{% url 'login' %}" method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Login" >
-    </form>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th colspan="4" id="title">Login</th>
+        </tr>
+        </thead>
+    </table>
+    <table class="table">
+        <tr>
+            <td>
+                <form action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" value="Login" class="btn btn-primary">
+                </form>
+            </td>
+        </tr>
+    </table>
 {% endblock %}
