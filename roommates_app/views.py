@@ -246,52 +246,20 @@ class ShowCleaningView(LoginRequiredMixin, View):
 
         all_months_info = []
 
-        # for i in range(0, 12):
-        #     single_month_info = {}
-        #     try:
-        #         cleaning_this_week = Cleaning.objects.get(week=i)
-        #         selected_roommate = cleaning_this_week.roommate
-        #         selected_room = cleaning_this_week.room
-        #     except ObjectDoesNotExist:
-        #         selected_roommate = None
-        #         selected_room = None
-        #
-        #     single_month_info.update({'sorted_all_month_info': sorted_all_month_info[i]})
-        #     all_months_info.append(single_month_info)
-
         for j in range(0, 12):
             single_month_info = {}
             single_month_info.update({'month': j, 'sorted_all_month_info': sorted_all_month_info[j]})
             all_months_info.append(single_month_info)
 
-        # all_days_info = []
-        # for i in range(1, 365):
-        #     single_day_info = {}
-        #     try:
-        #         cleaning_this_week = Cleaning.objects.get(week=i)
-        #         selected_roommate = cleaning_this_week.roommate
-        #         selected_room = cleaning_this_week.room
-        #     except ObjectDoesNotExist:
-        #         selected_roommate = None
-        #         selected_room = None
 
-        #     single_day_info.update({'day': i, 'selected_roommate': selected_roommate,
-        #                             'selected_room': selected_room})
-        #     all_days_info.append(single_day_info)
-        #
-        # sorted_all_days_info = sorted(all_days_info, key=itemgetter('day'))
         all_days_info = []
         for i in range(1, 442):
             single_day_info = {}
-            # roommate_result_id = request.POST['roommate_index_{}'.format(i)]
-            # room_result_id = request.POST['room_index_{}'.format(i)]
+
             selected_cleaning = Cleaning.objects.get(week=i)
             selected_roommate = selected_cleaning.roommate
             selected_room = selected_cleaning.room
 
-            # if Cleaning.objects.filter(week=i).exists():
-            #     Cleaning.objects.filter(week=i).delete()
-            # Cleaning.objects.create(roommate=selected_roommate, room=selected_room, week=i)
 
             single_day_info.update({'day': i, 'selected_roommate': selected_roommate, 'selected_room': selected_room})
             all_days_info.append(single_day_info)

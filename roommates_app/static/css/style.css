@@ -8,8 +8,19 @@ table, td, tr, th {
     border-radius: 10px;
     border: 3px solid cornflowerblue;
 }
-td{
+/*td{*/
+    /*height: 80px;*/
+/*}*/
+.day_row {
+    height: 10px;
+    background-color: slategray;
+}
+.info_row {
     height: 80px;
+    background-color: mintcream;
+}
+.month_row {
+    height: 30px;
 }
 thead {
     text-align: center;
@@ -44,6 +55,9 @@ select {
     border: 2px solid #ccc;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+    width: 100%;
+}
+.select_label {
     width: 100%;
 }
 .btn-primary {
