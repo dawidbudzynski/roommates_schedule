@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for week_info in sorted_all_weeks_info %}
+   <ul>
+   <li>{{ week_info.day }}</li>
+   <li>{{ week_info.selected_roommate.name }}</li>
+   <li>{{ week_info.selected_room.name }}</li>
+   </ul>
+{% endfor %}
+
+</body>
+</html>
