@@ -3,7 +3,6 @@ from operator import itemgetter
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views import View
@@ -225,9 +224,9 @@ class AddCleaningView(LoginRequiredMixin, View):
             selected_roommate = Roommate.objects.get(id=roommate_result_id)
             selected_room = Room.objects.get(id=room_result_id)
 
-            if Cleaning.objects.filter(week=i).exists():
-                Cleaning.objects.filter(week=i).delete()
-            Cleaning.objects.create(roommate=selected_roommate, room=selected_room, week=i)
+            if Cleaning.objects.filter(index=i).exists():
+                Cleaning.objects.filter(index=i).delete()
+            Cleaning.objects.create(roommate=selected_roommate, room=selected_room, index=i)
 
             single_week_info.update({'day': i, 'selected_roommate': selected_roommate, 'selected_room': selected_room})
             all_weeks_info.append(single_week_info)
@@ -251,15 +250,13 @@ class ShowCleaningView(LoginRequiredMixin, View):
             single_month_info.update({'month': j, 'sorted_all_month_info': sorted_all_month_info[j]})
             all_months_info.append(single_month_info)
 
-
         all_days_info = []
         for i in range(1, 442):
             single_day_info = {}
 
-            selected_cleaning = Cleaning.objects.get(week=i)
+            selected_cleaning = Cleaning.objects.get(index=i)
             selected_roommate = selected_cleaning.roommate
             selected_room = selected_cleaning.room
-
 
             single_day_info.update({'day': i, 'selected_roommate': selected_roommate, 'selected_room': selected_room})
             all_days_info.append(single_day_info)
@@ -268,7 +265,7 @@ class ShowCleaningView(LoginRequiredMixin, View):
 
         ctx = {
             'all_months_info': all_months_info,
-            'sorted_all_days_info':sorted_all_days_info}
+            'sorted_all_days_info': sorted_all_days_info}
         return render(request,
                       template_name='cleaning_result.html',
                       context=ctx)

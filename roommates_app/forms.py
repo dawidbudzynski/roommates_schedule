@@ -29,7 +29,7 @@ class LoginForm(Form):
     password = CharField(label='Password', widget=PasswordInput)
 
 
-class AddCleaningForm(Form):
-    roommate = ModelChoiceField(label='Who cleaned?', queryset=all_roommates)
-    room = ModelChoiceField(label='Which room?', queryset=all_rooms)
-    date = DateField(label='When?', widget=SelectDateWidget)
+# class AddCleaningForm(Form):
+#     roommate = ModelChoiceField(label='Who cleaned?', queryset=all_roommates)
+#     room = ModelChoiceField(label='Which room?', queryset=all_rooms)
+    # date = DateField(label='When?', widget=SelectDateWidget)
