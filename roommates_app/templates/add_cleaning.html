@@ -3,7 +3,7 @@
     <table class="table">
         <thead class="thead-dark">
         <tr>
-            <th colspan="4">Add Cleaning</th>
+            <th colspan="4" id="title">Add Cleaning</th>
         </tr>
         </thead>
     </table>
@@ -28,13 +28,13 @@
             {% for week_info in sorted_all_weeks_info %}
                 <tr style="background-color: {{ week_info.selected_roommate.colour }}">
                     <td><h4>{{ week_info.week }}</h4></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ week_info.sorted_week_with_weekdays.0 }}</td>
+                    <td>{{ week_info.sorted_week_with_weekdays.1 }}</td>
+                    <td>{{ week_info.sorted_week_with_weekdays.2 }}</td>
+                    <td>{{ week_info.sorted_week_with_weekdays.3 }}</td>
+                    <td>{{ week_info.sorted_week_with_weekdays.4 }}</td>
+                    <td>{{ week_info.sorted_week_with_weekdays.5 }}</td>
+                    <td>{{ week_info.sorted_week_with_weekdays.6 }}</td>
                     <td>
                         <label>
                             <select name="roommate_week_{{ week_info.week }}" class="custom-select">

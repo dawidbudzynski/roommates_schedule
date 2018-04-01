@@ -1,5 +1,6 @@
 import datetime
 from operator import itemgetter
+from .calendar_days import sorted_week_with_weekdays
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -192,11 +193,11 @@ class AddCleaningView(LoginRequiredMixin, View):
         all_rooms = Room.objects.all().order_by('name')
         all_roommates = Roommate.objects.all().order_by('name')
 
-        first_week_of_the_month = datetime.date.today().isocalendar()[1]
-        last_week_of_two_months = first_week_of_the_month + 9
+        # first_week_of_the_month = datetime.date.today().isocalendar()[1]
+        # last_week_of_two_months = first_week_of_the_month + 9
 
         all_weeks_info = []
-        for i in range(first_week_of_the_month, last_week_of_two_months + 1):
+        for i in range(1, 64):
             single_week_info = {}
             try:
                 cleaning_this_week = Cleaning.objects.get(week=i)
@@ -207,7 +208,7 @@ class AddCleaningView(LoginRequiredMixin, View):
                 selected_room = None
 
             single_week_info.update({'week': i, 'selected_roommate': selected_roommate,
-                                     'selected_room': selected_room})
+                                     'selected_room': selected_room, 'sorted_week_with_weekdays': sorted_week_with_weekdays[i]})
             all_weeks_info.append(single_week_info)
 
         sorted_all_weeks_info = sorted(all_weeks_info, key=itemgetter('week'))
@@ -221,11 +222,11 @@ class AddCleaningView(LoginRequiredMixin, View):
 
     def post(self, request):
 
-        first_week_of_the_month = datetime.date.today().isocalendar()[1]
-        last_week_of_two_months = first_week_of_the_month + 9
+        # first_week_of_the_month = datetime.date.today().isocalendar()[1]
+        # last_week_of_two_months = first_week_of_the_month + 9
 
         all_weeks_info = []
-        for i in range(first_week_of_the_month, last_week_of_two_months + 1):
+        for i in range(1, 53):
             single_week_info = {}
             roommate_result_id = request.POST['roommate_week_{}'.format(i)]
             room_result_id = request.POST['room_week_{}'.format(i)]
@@ -251,11 +252,11 @@ class AddCleaningView(LoginRequiredMixin, View):
 
 class ShowCleaningView(LoginRequiredMixin, View):
     def get(self, request):
-        first_week_of_the_month = datetime.date.today().isocalendar()[1]
-        last_week_of_two_months = first_week_of_the_month + 9
+        # first_week_of_the_month = datetime.date.today().isocalendar()[1]
+        # last_week_of_two_months = first_week_of_the_month + 9
 
         all_weeks_info = []
-        for i in range(first_week_of_the_month, last_week_of_two_months + 1):
+        for i in range(1, 53):
             single_week_info = {}
             try:
                 cleaning_this_week = Cleaning.objects.get(week=i)
