@@ -13,7 +13,7 @@
             <th scope="col"></th>
         </tr>
         <tbody>
-        {% for room in all_rooms %}
+        {% for room in rooms_by_user %}
             <tr>
                 <td> {{ room.name }}</td>
                 <td><a href="{% url 'delete-room' room.id %}" class="btn btn-danger">Delete</a></td>

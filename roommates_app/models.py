@@ -14,6 +14,7 @@ class Room(models.Model):
 
 
 class Cleaning(models.Model):
+    account = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     roommate = models.ForeignKey(Roommate, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     index = models.IntegerField(null=True)

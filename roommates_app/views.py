@@ -90,8 +90,11 @@ class AddRoommateView(LoginRequiredMixin, View):
 
 class ShowRoommatesView(LoginRequiredMixin, View):
     def get(self, request):
-        all_roommates = Roommate.objects.all()
-        ctx = {'all_roommates': all_roommates}
+        if request.user.is_authenticated:
+            roommates_by_user = Roommate.objects.filter(account=request.user.id)
+        else:
+            roommates_by_user = []
+        ctx = {'roommates_by_user': roommates_by_user}
 
         return render(request,
                       template_name='roommates.html',
@@ -132,8 +135,11 @@ class AddRoomView(LoginRequiredMixin, View):
 
 class ShowRoomsView(LoginRequiredMixin, View):
     def get(self, request):
-        all_rooms = Room.objects.all()
-        ctx = {'all_rooms': all_rooms}
+        if request.user.is_authenticated:
+            rooms_by_user = Room.objects.filter(account=request.user.id)
+        else:
+            rooms_by_user = []
+        ctx = {'rooms_by_user': rooms_by_user}
 
         return render(request,
                       template_name='rooms.html',
@@ -221,12 +227,6 @@ class AddCleaningView(LoginRequiredMixin, View):
         for i in range(1, 442):
             single_week_info = {}
 
-
-            # roommate_result_id = request.POST['roommate_index_{}'.format(i)]
-            # room_result_id = request.POST['room_index_{}'.format(i)]
-            # selected_roommate = Roommate.objects.get(id=roommate_result_id)
-            # selected_room = Room.objects.get(id=room_result_id)
-
             if 'roommate_index_{}'.format(i) in request.POST:
                 roommate_result_id = request.POST['roommate_index_{}'.format(i)]
                 selected_roommate = Roommate.objects.get(id=roommate_result_id)
@@ -241,18 +241,22 @@ class AddCleaningView(LoginRequiredMixin, View):
                 room_result_id = None
                 selected_room = None
 
-
-
-
             # if selected_roommate != None and selected_room != None:
             #     if Cleaning.objects.filter(index=i).exists():
             #         Cleaning.objects.filter(index=i).delete()
 
+            if request.user.is_authenticated:
+                account = request.user
+
             if selected_room != None and selected_roommate != None:
+                if request.user.is_authenticated:
+                    account = request.user
+                else:
+                    account = None
                 if Cleaning.objects.filter(index=i).exists():
                     Cleaning.objects.filter(index=i).delete()
-                    Cleaning.objects.create(roommate=selected_roommate, room=selected_room, index=i)
-                Cleaning.objects.create(roommate=selected_roommate, room=selected_room, index=i)
+                    Cleaning.objects.create(account=account, roommate=selected_roommate, room=selected_room, index=i)
+                Cleaning.objects.create(account=account, roommate=selected_roommate, room=selected_room, index=i)
 
             single_week_info.update(
                 {'day': i, 'selected_roommate': selected_roommate, 'selected_room': selected_room})
@@ -283,9 +287,14 @@ class ShowCleaningView(LoginRequiredMixin, View):
         for i in range(1, 442):
             single_day_info = {}
             try:
-                selected_cleaning = Cleaning.objects.get(index=i)
-                selected_roommate = selected_cleaning.roommate
-                selected_room = selected_cleaning.room
+                if request.user.is_authenticated:
+                    selected_cleaning = Cleaning.objects.filter(account=request.user.id).get(index=i)
+                    selected_roommate = selected_cleaning.roommate
+                    selected_room = selected_cleaning.room
+                else:
+                    selected_roommate = None
+                    selected_room = None
+
             except ObjectDoesNotExist:
                 selected_roommate = None
                 selected_room = None

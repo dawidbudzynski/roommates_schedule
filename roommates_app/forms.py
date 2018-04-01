@@ -1,5 +1,4 @@
-from django.forms import (Form, CharField, ModelChoiceField, PasswordInput, DateField, SelectDateWidget, ChoiceField)
-
+from django.forms import (Form, CharField, PasswordInput, ChoiceField)
 
 from .models import (Roommate, Room)
 
@@ -27,9 +26,3 @@ class AddRoomForm(Form):
 class LoginForm(Form):
     username = CharField(label='Name', strip=True)
     password = CharField(label='Password', widget=PasswordInput)
-
-
-# class AddCleaningForm(Form):
-#     roommate = ModelChoiceField(label='Who cleaned?', queryset=all_roommates)
-#     room = ModelChoiceField(label='Which room?', queryset=all_rooms)
-    # date = DateField(label='When?', widget=SelectDateWidget)
