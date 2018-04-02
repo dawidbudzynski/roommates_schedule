@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views import View
 
-from .calendar_days import sorted_all_month_info
+from .calendar_days import (sorted_all_month_info, all_months_info_for_template, current_month_as_str)
 from .forms import (AddAccountForm, AddRoommateForm, AddRoomForm, LoginForm)
 from .models import (Roommate, Room, Cleaning)
 
@@ -198,7 +198,7 @@ class AddCleaningView(LoginRequiredMixin, View):
         all_rooms = Room.objects.all().order_by('name')
         all_roommates = Roommate.objects.all().order_by('name')
 
-        all_months_info = []
+        # all_months_info = []
 
         all_weeks_info = []
         for i in range(1, 64):
@@ -207,15 +207,16 @@ class AddCleaningView(LoginRequiredMixin, View):
             all_weeks_info.append(single_week_info)
         sorted_all_weeks_info = sorted(all_weeks_info, key=itemgetter('week'))
 
-        for j in range(0, 12):
-            single_month_info = {}
-            single_month_info.update({'month': j, 'sorted_all_month_info': sorted_all_month_info[j]})
-            all_months_info.append(single_month_info)
+        # for j in range(0, 12):
+        #     single_month_info = {}
+        #     single_month_info.update({'month': j, 'sorted_all_month_info': sorted_all_month_info[j]})
+        #     all_months_info.append(single_month_info)
 
         ctx = {'all_roommates': all_roommates,
                'all_rooms': all_rooms,
-               'all_months_info': all_months_info,
-               'sorted_all_weeks_info': sorted_all_weeks_info}
+               'all_months_info_for_template': all_months_info_for_template,
+               'sorted_all_weeks_info': sorted_all_weeks_info,
+               'current_month_as_str': current_month_as_str}
 
         return render(request,
                       template_name='add_cleaning.html',
@@ -231,14 +232,12 @@ class AddCleaningView(LoginRequiredMixin, View):
                 roommate_result_id = request.POST['roommate_index_{}'.format(i)]
                 selected_roommate = Roommate.objects.get(id=roommate_result_id)
             else:
-                # roommate_result_id = None
                 selected_roommate = None
 
             if 'room_index_{}'.format(i) in request.POST:
                 room_result_id = request.POST['room_index_{}'.format(i)]
                 selected_room = Room.objects.get(id=room_result_id)
             else:
-                # room_result_id = None
                 selected_room = None
 
             if selected_room is not None and selected_roommate is not None:
@@ -262,12 +261,12 @@ class AddCleaningView(LoginRequiredMixin, View):
 class ShowCleaningView(LoginRequiredMixin, View):
     def get(self, request):
 
-        all_months_info = []
-
-        for j in range(0, 12):
-            single_month_info = {}
-            single_month_info.update({'month': j, 'sorted_all_month_info': sorted_all_month_info[j]})
-            all_months_info.append(single_month_info)
+        # all_months_info_for_template = []
+        #
+        # for j in range(0, 12):
+        #     single_month_info = {}
+        #     single_month_info.update({'month': j, 'sorted_all_month_info': sorted_all_month_info[j]})
+        #     all_months_info_for_template.append(single_month_info)
 
         all_days_info = []
         for i in range(1, 442):
@@ -291,8 +290,9 @@ class ShowCleaningView(LoginRequiredMixin, View):
         sorted_all_days_info = sorted(all_days_info, key=itemgetter('day'))
 
         ctx = {
-            'all_months_info': all_months_info,
-            'sorted_all_days_info': sorted_all_days_info}
+            'all_months_info_for_template': all_months_info_for_template,
+            'sorted_all_days_info': sorted_all_days_info,
+            'current_month_as_str':current_month_as_str}
         return render(request,
                       template_name='cleaning_result.html',
                       context=ctx)

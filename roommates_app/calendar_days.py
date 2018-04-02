@@ -32,3 +32,15 @@ for i in range(0, 12):
     all_months_info.append(single_month_info)
 
 sorted_all_month_info = sorted(all_months_info, key=itemgetter('number'))
+
+all_months_info_for_template = []
+
+for j in range(0, 12):
+    single_month_info = {}
+    single_month_info.update({'month': j, 'sorted_all_month_info': sorted_all_month_info[j]})
+    all_months_info_for_template.append(single_month_info)
+
+import datetime
+
+current_month_as_str = datetime.datetime.now().strftime("%B")
+# print(month)

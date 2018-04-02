@@ -16,164 +16,168 @@
             <th>Sunday</th>
         </tr>
     </table>
-    <div>
-        <div class="my_calendar">
-            <form action="{% url 'add-cleaning' %}" method="POST">
-                {% csrf_token %}
+    <form action="{% url 'add-cleaning' %}" method="POST">
+        {% csrf_token %}
+        {% for month in all_months_info_for_template %}
+            <div id="{{ month.sorted_all_month_info.month_name }}">
                 <table class="table">
-                    {% for month in all_months_info %}
-                        <tr class="month_row">
-                            <th colspan="7" id="month"><h3>{{ month.sorted_all_month_info.month_name }}</h3></th>
-                        </tr>
-                        <tr>
-                            {% for day in month.sorted_all_month_info.weeks_in_month %}
-                                <tr class="day_row">
-                                    <td>
-                                        {{ day.0.1 }}
-                                    </td>
-                                    <td>
-                                        {{ day.1.1 }}
-                                    </td>
-                                    <td>
-                                        {{ day.2.1 }}
-                                    </td>
-                                    <td>
-                                        {{ day.3.1 }}
-                                    </td>
-                                    <td>
-                                        {{ day.4.1 }}
-                                    </td>
-                                    <td>
-                                        {{ day.5.1 }}
-                                    </td>
-                                    <td>
-                                        {{ day.6.1 }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="select_label">
-                                            <select name="roommate_index_{{ day.0.0 }}" class="custom-select">
-                                                {% for roommate in all_roommates %}
-                                                    <option value={{ roommate.id }}>{{ roommate.name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </label>
-                                        <label class="select_label">
-                                            <select name="room_index_{{ day.0.0 }}" class="custom-select">
-                                                {% for room in all_rooms %}
-                                                    <option value={{ room.id }}>{{ room.name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <label class="select_label">
-                                            <select name="roommate_index_{{ day.1.0 }}" class="custom-select">
-                                                {% for roommate in all_roommates %}
-                                                    <option value={{ roommate.id }}>{{ roommate.name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </label>
-                                        <label class="select_label">
-                                            <select name="room_index_{{ day.1.0 }}" class="custom-select">
-                                                {% for room in all_rooms %}
-                                                    <option value={{ room.id }}>{{ room.name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <label class="select_label">
-                                            <select name="roommate_index_{{ day.2.0 }}" class="custom-select">
-                                                {% for roommate in all_roommates %}
-                                                    <option value={{ roommate.id }}>{{ roommate.name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </label>
-                                        <label class="select_label">
-                                            <select name="room_index_{{ day.2.0 }}" class="custom-select">
-                                                {% for room in all_rooms %}
-                                                    <option value={{ room.id }}>{{ room.name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <label class="select_label">
-                                            <select name="roommate_index_{{ day.3.0 }}" class="custom-select">
-                                                {% for roommate in all_roommates %}
-                                                    <option value={{ roommate.id }}>{{ roommate.name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </label>
-                                        <label class="select_label">
-                                            <select name="room_index_{{ day.3.0 }}" class="custom-select">
-                                                {% for room in all_rooms %}
-                                                    <option value={{ room.id }}>{{ room.name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <label class="select_label">
-                                            <select name="roommate_index_{{ day.4.0 }}" class="custom-select">
-                                                {% for roommate in all_roommates %}
-                                                    <option value={{ roommate.id }}>{{ roommate.name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </label>
-                                        <label class="select_label">
-                                            <select name="room_index_{{ day.4.0 }}" class="custom-select">
-                                                {% for room in all_rooms %}
-                                                    <option value={{ room.id }}>{{ room.name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <label class="select_label">
-                                            <select name="roommate_index_{{ day.5.0 }}" class="custom-select">
-                                                {% for roommate in all_roommates %}
-                                                    <option value={{ roommate.id }}>{{ roommate.name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </label>
-                                        <label class="select_label">
-                                            <select name="room_index_{{ day.5.0 }}" class="custom-select">
-                                                {% for room in all_rooms %}
-                                                    <option value={{ room.id }}>{{ room.name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <label class="select_label">
-                                            <select name="roommate_index_{{ day.6.0 }}" class="custom-select">
-                                                {% for roommate in all_roommates %}
-                                                    <option value={{ roommate.id }}>{{ roommate.name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </label>
-                                        <label class="select_label">
-                                            <select name="room_index_{{ day.6.0 }}" class="custom-select">
-                                                {% for room in all_rooms %}
-                                                    <option value={{ room.id }}>{{ room.name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </label>
-                                    </td>
-                                </tr>
+                    <tr class="month_row">
+                        <th colspan="7" id="month"><h3>{{ month.sorted_all_month_info.month_name }}</h3></th>
+                    </tr>
+                    <tr class="jump_row">
+                        <td colspan="7">
+                            <a href="#{{ current_month_as_str }}">Jump to current month</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        {% for day in month.sorted_all_month_info.weeks_in_month %}
+                            <tr class="day_row">
+                                <td>
+                                    {{ day.0.1 }}
+                                </td>
+                                <td>
+                                    {{ day.1.1 }}
+                                </td>
+                                <td>
+                                    {{ day.2.1 }}
+                                </td>
+                                <td>
+                                    {{ day.3.1 }}
+                                </td>
+                                <td>
+                                    {{ day.4.1 }}
+                                </td>
+                                <td>
+                                    {{ day.5.1 }}
+                                </td>
+                                <td>
+                                    {{ day.6.1 }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="select_label">
+                                        <select name="roommate_index_{{ day.0.0 }}" class="custom-select">
+                                            {% for roommate in all_roommates %}
+                                                <option value={{ roommate.id }}>{{ roommate.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                    <label class="select_label">
+                                        <select name="room_index_{{ day.0.0 }}" class="custom-select">
+                                            {% for room in all_rooms %}
+                                                <option value={{ room.id }}>{{ room.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="select_label">
+                                        <select name="roommate_index_{{ day.1.0 }}" class="custom-select">
+                                            {% for roommate in all_roommates %}
+                                                <option value={{ roommate.id }}>{{ roommate.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                    <label class="select_label">
+                                        <select name="room_index_{{ day.1.0 }}" class="custom-select">
+                                            {% for room in all_rooms %}
+                                                <option value={{ room.id }}>{{ room.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="select_label">
+                                        <select name="roommate_index_{{ day.2.0 }}" class="custom-select">
+                                            {% for roommate in all_roommates %}
+                                                <option value={{ roommate.id }}>{{ roommate.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                    <label class="select_label">
+                                        <select name="room_index_{{ day.2.0 }}" class="custom-select">
+                                            {% for room in all_rooms %}
+                                                <option value={{ room.id }}>{{ room.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="select_label">
+                                        <select name="roommate_index_{{ day.3.0 }}" class="custom-select">
+                                            {% for roommate in all_roommates %}
+                                                <option value={{ roommate.id }}>{{ roommate.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                    <label class="select_label">
+                                        <select name="room_index_{{ day.3.0 }}" class="custom-select">
+                                            {% for room in all_rooms %}
+                                                <option value={{ room.id }}>{{ room.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="select_label">
+                                        <select name="roommate_index_{{ day.4.0 }}" class="custom-select">
+                                            {% for roommate in all_roommates %}
+                                                <option value={{ roommate.id }}>{{ roommate.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                    <label class="select_label">
+                                        <select name="room_index_{{ day.4.0 }}" class="custom-select">
+                                            {% for room in all_rooms %}
+                                                <option value={{ room.id }}>{{ room.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="select_label">
+                                        <select name="roommate_index_{{ day.5.0 }}" class="custom-select">
+                                            {% for roommate in all_roommates %}
+                                                <option value={{ roommate.id }}>{{ roommate.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                    <label class="select_label">
+                                        <select name="room_index_{{ day.5.0 }}" class="custom-select">
+                                            {% for room in all_rooms %}
+                                                <option value={{ room.id }}>{{ room.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="select_label">
+                                        <select name="roommate_index_{{ day.6.0 }}" class="custom-select">
+                                            {% for roommate in all_roommates %}
+                                                <option value={{ roommate.id }}>{{ roommate.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                    <label class="select_label">
+                                        <select name="room_index_{{ day.6.0 }}" class="custom-select">
+                                            {% for room in all_rooms %}
+                                                <option value={{ room.id }}>{{ room.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                </td>
+                            </tr>
 
-                            {% endfor %}
-                        <tr>
-                            <td colspan="7">
-                                <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block">
-                            </td>
-                        </tr>
-                    {% endfor %}
+                        {% endfor %}
+                    <tr>
+                        <td colspan="7">
+                            <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block">
+                        </td>
+                    </tr>
                 </table>
-            </form>
-        </div>
-    </div>
+            </div>
+        {% endfor %}
+    </form>
+
 {% endblock %}
