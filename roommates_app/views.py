@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views import View
 
-from .calendar_days import (sorted_all_month_info, all_months_info_for_template, current_month_as_str)
+from .calendar_days import (all_months_info_for_template, current_month_as_str)
 from .forms import (AddAccountForm, AddRoommateForm, AddRoomForm, LoginForm)
 from .models import (Roommate, Room, Cleaning)
 
@@ -292,7 +292,7 @@ class ShowCleaningView(LoginRequiredMixin, View):
         ctx = {
             'all_months_info_for_template': all_months_info_for_template,
             'sorted_all_days_info': sorted_all_days_info,
-            'current_month_as_str':current_month_as_str}
+            'current_month_as_str': current_month_as_str}
         return render(request,
                       template_name='cleaning_result.html',
                       context=ctx)
@@ -304,3 +304,25 @@ class DeleteCleaningView(LoginRequiredMixin, View):
         cleaning.delete()
 
         return HttpResponseRedirect('/show_cleaning')
+
+
+# STATS
+
+class ShowCleaningStatsView(View):
+    def get(self, request):
+        all_roommates = Roommate.objects.all().order_by('name')
+        all_cleaning_stats = []
+
+        for roommate in all_roommates:
+            cleaning_number = roommate.cleaning_set.count()
+            single_person_stats = []
+            single_person_stats.append(roommate.name)
+            single_person_stats.append(cleaning_number)
+            # single_person_stats = {'roommate': roommate, 'cleaning_number': cleaning_number}
+            all_cleaning_stats.append(single_person_stats)
+
+        ctx = {'all_cleaning_stats': all_cleaning_stats}
+
+        return render(request,
+                      template_name='test.html',
+                      context=ctx)

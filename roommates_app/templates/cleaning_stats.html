@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th colspan="4" id="title">Cleaning statistics</th>
+        </tr>
+        </thead>
+    </table>
+    <table class="table">
+        <tbody>
+        {% for stat in all_cleaning_stats %}
+            <tr>
+                <td>
+                    {{ stat.roommate.name }}
+                </td>
+                <td>
+                    {{ stat.cleaning_number }}
+                </td>
+                <td>
+                    <meter style="width:75%;height:25px;" id="bars" title="Awesomeness" max="10" low="1" high="8"
+                           optimum="5" value={{ stat.cleaning_number }}></meter>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
