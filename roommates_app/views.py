@@ -12,6 +12,7 @@ from .calendar_days import (all_months_info_for_template, current_month_as_str)
 from .forms import (AddAccountForm, AddRoommateForm, AddRoomForm, LoginForm)
 from .models import (Roommate, Room, Cleaning)
 
+
 # APARTMENTS
 
 class AddAccountView(View):
@@ -106,6 +107,7 @@ class ShowRoommatesView(LoginRequiredMixin, View):
 class DeleteRoommateView(PermissionRequiredMixin, View):
     permission_required = 'roommate_app.delete_roommate'
     raise_exception = True
+
     def get(self, request, roommate_id):
         roommate = Roommate.objects.get(id=roommate_id)
         roommate.delete()
@@ -153,6 +155,7 @@ class ShowRoomsView(LoginRequiredMixin, View):
 class DeleteRoomView(PermissionRequiredMixin, View):
     permission_required = 'roommate_app.delete_room'
     raise_exception = True
+
     def get(self, request, room_id):
         room = Room.objects.get(id=room_id)
         room.delete()
@@ -204,18 +207,32 @@ class AddCleaningView(LoginRequiredMixin, View):
         all_rooms = Room.objects.all().order_by('name')
         all_roommates = Roommate.objects.all().order_by('name')
 
-        all_weeks_info = []
-        for i in range(1, 64):
-            single_week_info = {}
-            single_week_info.update({'week': i})
-            all_weeks_info.append(single_week_info)
-        sorted_all_weeks_info = sorted(all_weeks_info, key=itemgetter('week'))
+        all_days_info = []
+        for i in range(1, 442):
+            single_day_info = {}
+            try:
+                if request.user.is_authenticated:
+                    selected_cleaning = Cleaning.objects.filter(account=request.user.id).get(index=i)
+                    selected_roommate = selected_cleaning.roommate
+                    selected_room = selected_cleaning.room
+                else:
+                    selected_roommate = None
+                    selected_room = None
+
+            except ObjectDoesNotExist:
+                selected_roommate = None
+                selected_room = None
+
+            single_day_info.update({'day': i, 'selected_roommate': selected_roommate, 'selected_room': selected_room})
+            all_days_info.append(single_day_info)
+
+        sorted_all_days_info = sorted(all_days_info, key=itemgetter('day'))
 
         ctx = {'all_roommates': all_roommates,
                'all_rooms': all_rooms,
                'all_months_info_for_template': all_months_info_for_template,
-               'sorted_all_weeks_info': sorted_all_weeks_info,
-               'current_month_as_str': current_month_as_str}
+               'current_month_as_str': current_month_as_str,
+               'sorted_all_days_info': sorted_all_days_info}
 
         return render(request,
                       template_name='add_cleaning.html',
@@ -227,6 +244,7 @@ class AddCleaningView(LoginRequiredMixin, View):
         for i in range(1, 442):
             single_week_info = {}
 
+            # show objects only from current account
             if 'roommate_index_{}'.format(i) in request.POST:
                 roommate_result_id = request.POST['roommate_index_{}'.format(i)]
                 selected_roommate = Roommate.objects.get(id=roommate_result_id)
@@ -244,6 +262,8 @@ class AddCleaningView(LoginRequiredMixin, View):
                     account = request.user
                 else:
                     account = None
+
+                # if cleaning object exist replace it with new one, if not create new
                 if Cleaning.objects.filter(index=i).exists():
                     Cleaning.objects.filter(index=i).delete()
                     Cleaning.objects.create(account=account, roommate=selected_roommate, room=selected_room, index=i)
@@ -317,3 +337,19 @@ class ShowCleaningStatsView(View):
         return render(request,
                       template_name='cleaning_stats.html',
                       context=ctx)
+
+# DEMO
+
+class ShowDemoView(View):
+    def get(self, request):
+        username = 'account_1'
+        password = 'account_1'
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect('/show_stats')
+        else:
+            return HttpResponseRedirect('/wrong_password')
+
+

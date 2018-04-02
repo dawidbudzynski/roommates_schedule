@@ -12,7 +12,13 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
 
+    {#    font#}
+
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+
+    {#    icons#}
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
     <title>Good-roommate</title>
@@ -20,7 +26,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'show-stats' %}">Good-Roommate</a>
+        <a class="navbar-brand" href="{% url 'show-stats' %}"><b>Good-Roommate</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -30,7 +36,8 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">account_circle</i>
                         Accounts
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -41,6 +48,7 @@
                 <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">face</i>
                         Roommate
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -51,6 +59,7 @@
                 <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">home</i>
                         Rooms
                     </a>
                     <div class="dropdown-menu active" aria-labelledby="navbarDropdown">
@@ -61,6 +70,7 @@
                 <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">event</i>
                         Cleaning
                     </a>
                     <div class="dropdown-menu active" aria-labelledby="navbarDropdown">
@@ -68,33 +78,50 @@
                         <a class="dropdown-item" href="{% url 'show-cleaning' %}">Show cleaning</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'show-stats' %}">Stats</a>
+                <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">equalizer</i>
+                        Stats
+                    </a>
+                    <div class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'show-stats' %}">Show statistics</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">local_activity</i>
+                        Demo
+                    </a>
+                    <div class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'show-demo' %}">Show demo</a>
+                    </div>
                 </li>
             </ul>
         </div>
         <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
-            {% if request.user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" style=visibility:hidden></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
-                </li>
-                <li class="nav-item" style="width: 300px">
-                    <a class="nav-link active" href=""><b>Account: {{ request.user.username }}</b></a>
-                </li>
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'login' %}">Login</a>
-                </li>
-                <li class="nav-item" style="width: 300px">
-                    <a class="nav-link active" href=""><b>Account: .....</b></a>
-                </li>
-            {% endif %}
-        </ul>
-    </div>
+            <ul class="navbar-nav ml-auto">
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" style=visibility:hidden></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    <li class="nav-item" style="width: 300px">
+                        <a class="nav-link active" href=""><b>Account: {{ request.user.username }}</b></a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item" style="width: 300px">
+                        <a class="nav-link active" href=""><b>Account: None</b></a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
 
     </div>
 </nav>

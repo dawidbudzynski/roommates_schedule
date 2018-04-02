@@ -37,12 +37,15 @@ p{
 .navbar-nav > li > .dropdown-menu > a:hover {
     background-color: #4CAF50;
 }
+/*.nav-item {*/
+    /*width: 150px;*/
+/*}*/
 table, td, tr, th {
     text-align: center;
     border-radius: 10px;
     border: 3px solid #239B56;
 }
-h3 {
+h3, a {
    color: mintcream;
 }
 .day_row {
@@ -114,6 +117,15 @@ select {
 .btn-danger {
     width: 30%;
 }
+a {
+    color: mintcream;
+    text-decoration: none;
+}
+a:hover {
+    color: mintcream;
+    text-decoration: none;
+}
+
 
 
 
