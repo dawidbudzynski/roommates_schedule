@@ -1,7 +1,7 @@
 from operator import itemgetter
 
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import (LoginRequiredMixin, PermissionRequiredMixin)
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, HttpResponse
@@ -11,7 +11,6 @@ from django.views import View
 from .calendar_days import (all_months_info_for_template, current_month_as_str)
 from .forms import (AddAccountForm, AddRoommateForm, AddRoomForm, LoginForm)
 from .models import (Roommate, Room, Cleaning)
-
 
 # APARTMENTS
 
@@ -55,7 +54,10 @@ class ShowAccountView(View):
                       context=ctx)
 
 
-class DeleteAccountView(View):
+class DeleteAccountView(PermissionRequiredMixin, View):
+    permission_required = 'roommate_app.delete_apartment'
+    raise_exception = True
+
     def get(self, request, user_id):
         user = User.objects.get(id=user_id)
         user.delete()
@@ -101,7 +103,9 @@ class ShowRoommatesView(LoginRequiredMixin, View):
                       context=ctx)
 
 
-class DeleteRoommateView(LoginRequiredMixin, View):
+class DeleteRoommateView(PermissionRequiredMixin, View):
+    permission_required = 'roommate_app.delete_roommate'
+    raise_exception = True
     def get(self, request, roommate_id):
         roommate = Roommate.objects.get(id=roommate_id)
         roommate.delete()
@@ -146,7 +150,9 @@ class ShowRoomsView(LoginRequiredMixin, View):
                       context=ctx)
 
 
-class DeleteRoomView(LoginRequiredMixin, View):
+class DeleteRoomView(PermissionRequiredMixin, View):
+    permission_required = 'roommate_app.delete_room'
+    raise_exception = True
     def get(self, request, room_id):
         room = Room.objects.get(id=room_id)
         room.delete()
@@ -198,19 +204,12 @@ class AddCleaningView(LoginRequiredMixin, View):
         all_rooms = Room.objects.all().order_by('name')
         all_roommates = Roommate.objects.all().order_by('name')
 
-        # all_months_info = []
-
         all_weeks_info = []
         for i in range(1, 64):
             single_week_info = {}
             single_week_info.update({'week': i})
             all_weeks_info.append(single_week_info)
         sorted_all_weeks_info = sorted(all_weeks_info, key=itemgetter('week'))
-
-        # for j in range(0, 12):
-        #     single_month_info = {}
-        #     single_month_info.update({'month': j, 'sorted_all_month_info': sorted_all_month_info[j]})
-        #     all_months_info.append(single_month_info)
 
         ctx = {'all_roommates': all_roommates,
                'all_rooms': all_rooms,
@@ -260,13 +259,6 @@ class AddCleaningView(LoginRequiredMixin, View):
 
 class ShowCleaningView(LoginRequiredMixin, View):
     def get(self, request):
-
-        # all_months_info_for_template = []
-        #
-        # for j in range(0, 12):
-        #     single_month_info = {}
-        #     single_month_info.update({'month': j, 'sorted_all_month_info': sorted_all_month_info[j]})
-        #     all_months_info_for_template.append(single_month_info)
 
         all_days_info = []
         for i in range(1, 442):
@@ -318,11 +310,10 @@ class ShowCleaningStatsView(View):
             single_person_stats = []
             single_person_stats.append(roommate.name)
             single_person_stats.append(cleaning_number)
-            # single_person_stats = {'roommate': roommate, 'cleaning_number': cleaning_number}
             all_cleaning_stats.append(single_person_stats)
 
         ctx = {'all_cleaning_stats': all_cleaning_stats}
 
         return render(request,
-                      template_name='test.html',
+                      template_name='cleaning_stats.html',
                       context=ctx)

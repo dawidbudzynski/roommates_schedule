@@ -19,8 +19,8 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#">Good-Roommate</a>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'show-stats' %}">Good-Roommate</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -82,18 +82,15 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href=""><b>Current apartment: {{ request.user.username }}</b></a>
+                <li class="nav-item" style="width: 300px">
+                    <a class="nav-link active" href=""><b>Account: {{ request.user.username }}</b></a>
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'add-account' %}">Add account</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link active" href="{% url 'login' %}">Login</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href=""><b>Current apartment: ------</b></a>
+                <li class="nav-item" style="width: 300px">
+                    <a class="nav-link active" href=""><b>Account: .....</b></a>
                 </li>
             {% endif %}
         </ul>

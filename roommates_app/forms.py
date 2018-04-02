@@ -4,8 +4,9 @@ from .models import (Roommate, Room)
 
 all_roommates = Roommate.objects.all()
 all_rooms = Room.objects.all()
-COLOURS = {('red', 'red'), ('yellow', 'yellow'), ('orange', 'orange'),
-           ('gray', 'gray'), ('green', 'green'), ('blue', 'blue'), ('white', 'white')}
+COLOURS = {('#E1361F', 'red'), ('#EAE530', 'yellow'), ('#F08322', 'orange'),
+           ('#977F6A', 'gray'), ('#35A035', 'green'), ('#4A62C4', 'blue'), ('#4E2E7E', 'purple'),
+           ('#47B7A6', 'light-blue')}
 
 
 class AddAccountForm(Form):

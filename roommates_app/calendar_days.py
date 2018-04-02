@@ -1,4 +1,5 @@
 import calendar
+import datetime
 from operator import itemgetter
 
 month_number = list(range(1, 13))
@@ -40,7 +41,4 @@ for j in range(0, 12):
     single_month_info.update({'month': j, 'sorted_all_month_info': sorted_all_month_info[j]})
     all_months_info_for_template.append(single_month_info)
 
-import datetime
-
 current_month_as_str = datetime.datetime.now().strftime("%B")
-# print(month)
