@@ -22,7 +22,8 @@ from roommates_app.views import (AddAccountView, ShowAccountView, DeleteAccountV
                                  LoginToApartmentView, LogoutView,
                                  AddCleaningView, ShowCleaningView, DeleteCleaningView,
                                  ShowCleaningStatsView,
-                                 ShowDemoView)
+                                 ShowDemoView,
+                                 WrongPasswordView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,5 +43,6 @@ urlpatterns = [
     path('show_cleaning', ShowCleaningView.as_view(), name='show-cleaning'),
     path('delete_cleaning/<int:cleaning_id>', DeleteCleaningView.as_view(), name='delete-cleaning'),
     path('show_stats', ShowCleaningStatsView.as_view(), name='show-stats'),
-    path('show_demo', ShowDemoView.as_view(), name='show-demo')
+    path('demo', ShowDemoView.as_view(), name='show-demo'),
+    path('wrong_password', WrongPasswordView.as_view(), name='wrong-password')
 ]

@@ -13,7 +13,17 @@ from .forms import (AddAccountForm, AddRoommateForm, AddRoomForm, LoginForm)
 from .models import (Roommate, Room, Cleaning)
 
 
-# APARTMENTS
+# ERRORS
+
+class WrongPasswordView(View):
+    def get(self, request):
+
+
+        return render(request,
+                      template_name='wrong_password.html')
+
+
+# ACCOUNTS
 
 class AddAccountView(View):
     def get(self, request):
