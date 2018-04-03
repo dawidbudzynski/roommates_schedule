@@ -1,12 +1,12 @@
 # Roommates schedule
 
-**Simple webapp made in Django 2.0**
+**Webapp made in Django 2.0**
 
 **Link to the website:**
-**http://dawidb-roommates.com/**
+**http://dawidb-schedule.online/demo**
 
 **Main features:**
-- adding tasks to calendar
+- adding tasks to calendar (writing and reading from MySQL database)
 - displaying statistics and charts for all roommates
 
 **Requirements:**
