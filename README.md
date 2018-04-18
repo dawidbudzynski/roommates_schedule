@@ -5,7 +5,7 @@
 **Link to the website:**
 **http://dawidb-schedule.online/demo**
 
-**Main features:**
+**Main functions:**
 - adding tasks to calendar (writing and reading from MySQL database)
 - displaying statistics and charts for all roommates
 
