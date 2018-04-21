@@ -1,6 +1,6 @@
 # Roommates schedule
 
-**An app used for planning and distributing responsibilities among housemates - made in Django 2.0**
+**A web application used for planning and distributing responsibilities among housemates. Made with Django 2.0 and MySQL database**
 
 **Link to the website:**
 **http://dawidb-schedule.online/demo**
