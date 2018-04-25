@@ -20,7 +20,7 @@ from roommates_app.views import (AddAccountView, ShowAccountView, DeleteAccountV
                                  AddRoommateView, ShowRoommatesView, DeleteRoommateView,
                                  AddRoomView, ShowRoomsView, DeleteRoomView,
                                  LoginToApartmentView, LogoutView,
-                                 AddCleaningView, ShowCleaningView, DeleteCleaningView,
+                                 AddTaskView, ShowTaskView, DeleteTaskView,
                                  ShowCleaningStatsView,
                                  ShowDemoView,
                                  WrongPasswordView)
@@ -39,9 +39,9 @@ urlpatterns = [
     path('delete_room/<int:room_id>', DeleteRoomView.as_view(), name='delete-room'),
     path('login', LoginToApartmentView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
-    path('add_cleaning', AddCleaningView.as_view(), name='add-cleaning'),
-    path('show_cleaning', ShowCleaningView.as_view(), name='show-cleaning'),
-    path('delete_cleaning/<int:cleaning_id>', DeleteCleaningView.as_view(), name='delete-cleaning'),
+    path('add_task', AddTaskView.as_view(), name='add-task'),
+    path('show_task', ShowTaskView.as_view(), name='show-task'),
+    path('delete_task/<int:task_id>', DeleteTaskView.as_view(), name='delete-cleaning'),
     path('show_stats', ShowCleaningStatsView.as_view(), name='show-stats'),
     path('demo', ShowDemoView.as_view(), name='show-demo'),
     path('wrong_password', WrongPasswordView.as_view(), name='wrong-password')

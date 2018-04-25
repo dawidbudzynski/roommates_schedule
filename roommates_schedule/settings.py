@@ -25,8 +25,8 @@ SECRET_KEY = 'a-vl711s#@y8fu1*dx-laph7!c127cgyv^zd%lwtzt5dq#01xh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['dawidb.pythonanywhere.com']
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['dawidb.pythonanywhere.com']
 
 # Application definition
 
@@ -74,26 +74,26 @@ WSGI_APPLICATION = 'roommates_schedule.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
+# DATABASES   =   {
+#     'default':  {
 #         'NAME': 'roommates_db',
-#         'USER': 'root',
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'USER': 'postgres',
 #         'PASSWORD': 'coderslab',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
+#         'HOST': '127.0.0.1'
 #     }
 # }
 
-# PYTHON ANYWHERE DB
+# HEROKU DB
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dawidb$default',
-        'USER': 'dawidb',
+        'USER': 'anxtdifkvdkysd',
         'PASSWORD': '{}'.format(db_pass),
-        'HOST': 'dawidb.mysql.pythonanywhere-services.com',
+        'HOST': 'ec2-23-23-247-222.compute-1.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
@@ -133,3 +133,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_URL = '/login'
+
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())

@@ -17,8 +17,6 @@ from .models import (Roommate, Room, Cleaning)
 
 class WrongPasswordView(View):
     def get(self, request):
-
-
         return render(request,
                       template_name='wrong_password.html')
 
@@ -210,9 +208,9 @@ class LogoutView(View):
         return HttpResponseRedirect('/')
 
 
-# CLEANING
+# TASKS
 
-class AddCleaningView(LoginRequiredMixin, View):
+class AddTaskView(LoginRequiredMixin, View):
     def get(self, request):
         all_rooms = Room.objects.all().order_by('name')
         all_roommates = Roommate.objects.all().order_by('name')
@@ -245,7 +243,7 @@ class AddCleaningView(LoginRequiredMixin, View):
                'sorted_all_days_info': sorted_all_days_info}
 
         return render(request,
-                      template_name='add_cleaning.html',
+                      template_name='add_task.html',
                       context=ctx)
 
     def post(self, request):
@@ -284,10 +282,10 @@ class AddCleaningView(LoginRequiredMixin, View):
                 {'day': i, 'selected_roommate': selected_roommate, 'selected_room': selected_room})
             all_weeks_info.append(single_week_info)
 
-        return HttpResponseRedirect('/show_cleaning')
+        return HttpResponseRedirect('/show_task')
 
 
-class ShowCleaningView(LoginRequiredMixin, View):
+class ShowTaskView(LoginRequiredMixin, View):
     def get(self, request):
 
         all_days_info = []
@@ -320,12 +318,12 @@ class ShowCleaningView(LoginRequiredMixin, View):
                       context=ctx)
 
 
-class DeleteCleaningView(LoginRequiredMixin, View):
-    def get(self, request, cleaning_id):
-        cleaning = Cleaning.objects.get(id=cleaning_id)
-        cleaning.delete()
+class DeleteTaskView(LoginRequiredMixin, View):
+    def get(self, request, task_id):
+        task = Cleaning.objects.get(id=task_id)
+        task.delete()
 
-        return HttpResponseRedirect('/show_cleaning')
+        return HttpResponseRedirect('/show_task')
 
 
 # STATS
@@ -348,6 +346,7 @@ class ShowCleaningStatsView(View):
                       template_name='cleaning_stats.html',
                       context=ctx)
 
+
 # DEMO
 
 class ShowDemoView(View):
@@ -361,5 +360,3 @@ class ShowDemoView(View):
             return HttpResponseRedirect('/show_stats')
         else:
             return HttpResponseRedirect('/wrong_password')
-
-
