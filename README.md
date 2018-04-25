@@ -1,6 +1,6 @@
 # Roommates schedule
 
-**A web application used for planning and distributing responsibilities among housemates. Made with Django 2.0 and MySQL database**
+**A web application used for planning and distributing responsibilities among housemates.  Made with Django 2.0 and PostgreSQL database**
 
 **Link to the website:**
 **https://roommatesschedule.herokuapp.com/demo**
@@ -12,4 +12,4 @@
 **Requirements:**
 - Python 3.5+
 - Django 2.0+
-- mysqlclient 1.3.12
+- psycopg2 2.7.4
