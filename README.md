@@ -13,3 +13,7 @@
 - Python 3.5+
 - Django 2.0+
 - psycopg2 2.7.4
+
+![alt text](https://raw.githubusercontent.com/dawidbudzynski/roommates_schedule_python_django/master/examples/example1.png)
+
+![alt text](https://raw.githubusercontent.com/dawidbudzynski/roommates_schedule_python_django/master/examples/example2.png)
