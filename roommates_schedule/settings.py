@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'a-vl711s#@y8fu1*dx-laph7!c127cgyv^zd%lwtzt5dq#01xh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 # ALLOWED_HOSTS = ['dawidb.pythonanywhere.com']
